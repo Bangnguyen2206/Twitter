@@ -15,13 +15,17 @@
     "autoprefixer": "^10.4.14",
     "nuxt": "^3.6.1",
     "postcss": "^8.4.24",
+    "prisma": "^4.17.0-dev.47",
     "tailwindcss": "^3.3.2",
     "typescript": "^5.1.5"
   },
   "dependencies": {
     "@heroicons/vue": "^2.0.18",
+    "@prisma/client": "^4.16.2",
     "@tailwindcss/forms": "^0.5.3",
     "@vue-hero-icons/solid": "^1.7.2",
+    "bcrypt": "^5.1.0",
+    "h3": "^1.7.1",
     "path": "^0.12.7",
     "sass": "^1.63.6"
   }
