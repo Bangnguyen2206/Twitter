@@ -1,5 +1,6 @@
 import { sendError } from "h3";
-import { createUser } from "../../../db/users";
+import { createUser } from "../../db/users.js";
+import { userTransformer } from "../../../server/transformers/user.js";
 
 export default defineEventHandler(async (event) => {
   const body = await useBody(event);
@@ -22,11 +23,12 @@ export default defineEventHandler(async (event) => {
     password,
     username,
     name,
+    profileImage: "https://picsum.photos/200/200",
   };
+
   const user = await createUser(data);
-  console.log("user=====", user);
 
   return {
-    body: user,
+    body: userTransformer(user),
   };
 });
