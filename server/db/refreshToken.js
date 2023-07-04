@@ -1,4 +1,4 @@
-import { prisma } from "./index.js";
+import { prisma } from ".";
 
 export const createRefreshToken = (refreshToken) => {
   return prisma.refreshToken.create({

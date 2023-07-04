@@ -37,13 +37,14 @@ export default defineEventHandler(async (event) => {
   // Generate Tokens
   //   Access token
   //   Refresh tokens
-  const { accessToken, refreshToken } = generateTokens();
+  const { accessToken, refreshToken } = generateTokens(user);
   //   Save it inside database
   await createRefreshToken({
     token: refreshToken,
     userId: user.id,
   });
   //   Add http pnly cookie
+
   sendRefreshToken(event, refreshToken);
 
   return {

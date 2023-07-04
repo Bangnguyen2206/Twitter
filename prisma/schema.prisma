@@ -21,10 +21,10 @@ model User {
   profileImage String?
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
-  refreshtoken Refreshtoken[]
+  refreshtoken RefreshToken[]
 }
 
-model Refreshtoken {
+model RefreshToken {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   token     String   @unique
   createdAt DateTime @default(now())

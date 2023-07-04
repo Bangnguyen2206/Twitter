@@ -29,6 +29,7 @@
   </div>
 </template>
 <script setup>
+
 import useAuth from '../../composables/useAuth.js'
 
 const data = reactive({
@@ -42,7 +43,7 @@ async function handleLogin() {
   data.loading = true
   try {
     await login({
-      username: 'Bang Nguyen',
+      username: 'Bangnguyen',
       password: data.password,
     })
   } catch (error) {
