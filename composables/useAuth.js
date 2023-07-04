@@ -27,7 +27,7 @@ export default () => {
           },
         });
 
-        // setToken(data.access_token);
+        setToken(data.access_token);
         setUser(data.user);
 
         resolve(true);
@@ -36,6 +36,31 @@ export default () => {
       }
     });
   };
+
+  const refreshToken = () => {
+    return new Promise(async (resolve, reject) => {
+      const _fetch = useRequestFetch();
+      try {
+        const data = await _fetch("/api/auth/refresh");
+        setToken(data.access_token);
+        resolve(true);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
+  const initAuth = () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await refreshToken();
+        resolve(true);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
   return {
     login,
     useAuthUser,
