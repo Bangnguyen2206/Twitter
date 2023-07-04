@@ -11,6 +11,7 @@
         v-model="data.username"
         label="Username"
         placeholder="@username"
+        type="text"
       />
 
       <UIInput
@@ -43,7 +44,7 @@ async function handleLogin() {
   data.loading = true
   try {
     await login({
-      username: 'Bangnguyen',
+      username: data.username,
       password: data.password,
     })
   } catch (error) {

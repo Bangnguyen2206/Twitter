@@ -2,7 +2,7 @@
   <div :class="{ dark: darkMode }">
     <div class="bg-white dark:bg-dim-900">
       <!-- App -->
-      <div v-if="false" class="min-h-full">
+      <div v-if="user" class="min-h-full">
         <div
           class="grid grid-cols-12 mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:gap-5"
         >
@@ -41,6 +41,10 @@
 </template>
 
 <script setup>
+import { use } from "h3"
+import useAuth from './composables/useAuth.js'
 const darkMode = ref(false)
+const { useAuthUser } = useAuth()
+const user = useAuthUser()
 </script>
 
