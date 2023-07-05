@@ -1,9 +1,12 @@
 import formidable from "formidable";
 import { createTweet } from "../../../db/tweets.js";
+import { createMediaFile } from "../../../db/mediaFiles.js";
+import { tweetTransformer } from "../../../transformers/tweet.js";
+import { uploadToCloudinary } from "../../../../utils/cloudinary.js";
 
 export default defineEventHandler(async (event) => {
   const form = formidable({});
-  const response = new Promise((resolve, reject) => {
+  const response = await new Promise((resolve, reject) => {
     form.parse(event.req, (err, fields, files) => {
       if (err) {
         reject(err);
@@ -15,17 +18,26 @@ export default defineEventHandler(async (event) => {
     });
   });
 
-  const { fields, files } = response;
-
   const userId = event.context?.auth?.user?.id;
-
+  const { fields, files } = response;
   const tweetData = {
     authorId: userId,
-    text: "hello",
+    text: fields.text[0],
   };
   const tweet = await createTweet(tweetData);
+  const filePromises = Object.keys(files.image).map(async (key) => {
+    const file = files.image[key].filepath;
+    const cloudinaryResource = await uploadToCloudinary(file);
+    return createMediaFile({
+      url: cloudinaryResource.secure_url,
+      providerPublicId: cloudinaryResource.public_id,
+      userId: userId,
+      tweetId: tweet.id,
+    });
+  });
+  await Promise.all(filePromises);
 
   return {
-    tweets: tweet,
+    tweet: tweetTransformer(tweet),
   };
 });

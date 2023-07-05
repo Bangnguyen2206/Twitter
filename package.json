@@ -25,6 +25,7 @@
     "@tailwindcss/forms": "^0.5.3",
     "@vue-hero-icons/solid": "^1.7.2",
     "bcrypt": "^5.1.0",
+    "cloudinary": "^1.37.3",
     "formidable": "^3.5.0",
     "h3": "^1.7.1",
     "js-cookie": "^3.0.5",

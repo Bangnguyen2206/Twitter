@@ -1,9 +1,7 @@
 <template>
     <div>
         <MainSection title="Home" :loading="loading">
-
            {{user}}
-
         </MainSection>
     </div>
 </template>
