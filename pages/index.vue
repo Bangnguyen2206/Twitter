@@ -1,14 +1,14 @@
 <template>
     <div>
         <MainSection title="Home" :loading="loading">
-           {{user}}
+           <!-- {{user}} -->
+           <TweetForm :user="user"/>
         </MainSection>
     </div>
 </template>
 <script setup>
 import useAuth from '../composables/useAuth.js'
 const { useAuthUser } = useAuth()
-const loading = ref(false)
 const user = useAuthUser()
-
+const loading = ref(false)
 </script>

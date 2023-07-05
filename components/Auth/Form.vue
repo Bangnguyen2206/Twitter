@@ -21,11 +21,11 @@
         v-model="data.password"
       />
 
-      <div>
-        <button @click="handleLogin">
+     
+        <UIButton @click="handleLogin">
           Login
-        </button>
-      </div>
+        </UIButton>
+      
     </div>
   </div>
 </template>
