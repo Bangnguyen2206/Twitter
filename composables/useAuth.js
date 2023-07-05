@@ -1,3 +1,5 @@
+import useFetchApi from "./useFetchApi.js";
+
 export default () => {
   // Descriptions
   // ref, reactive: khởi tạo dữ liệu => useState
@@ -39,10 +41,22 @@ export default () => {
 
   const refreshToken = () => {
     return new Promise(async (resolve, reject) => {
-      const _fetch = useRequestFetch();
       try {
-        const data = await _fetch("/api/auth/refresh");
+        const data = await $fetch("/api/auth/refresh");
         setToken(data.access_token);
+        resolve(true);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
+  // Get user when start website
+  const getUser = () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const user = await useFetchApi("/api/auth/user");
+        setUser(user);
         resolve(true);
       } catch (error) {
         reject(error);
@@ -53,7 +67,10 @@ export default () => {
   const initAuth = () => {
     return new Promise(async (resolve, reject) => {
       try {
+        // Get refresh token
         await refreshToken();
+        // Get user
+        await getUser();
         resolve(true);
       } catch (error) {
         reject(error);
@@ -65,5 +82,6 @@ export default () => {
     login,
     useAuthUser,
     useAuthToken,
+    initAuth,
   };
 };

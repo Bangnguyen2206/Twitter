@@ -44,7 +44,12 @@
 import { use } from "h3"
 import useAuth from './composables/useAuth.js'
 const darkMode = ref(false)
-const { useAuthUser } = useAuth()
+const { useAuthUser, initAuth } = useAuth()
 const user = useAuthUser()
+// onMounted: called after the component has been mounted
+// onBeforeMount(): caled right before the component is to be mounted
+onBeforeMount(() => {
+    initAuth()
+})
 </script>
 
