@@ -13,6 +13,7 @@
         <textarea
           v-model="text"
           class="w-full h-10 text-lg text-gray-900 placeholder:text-gray-400 bg-transparent border-0 dark:tex.white focus:ring-0"
+          placeholder="What's happening!"
         ></textarea>
       </div>
     </div>
@@ -20,11 +21,16 @@
     <!-- File Selector -->
 
     <div class="p-4 pl-16">
-      <!-- <img :src="inputImageUrl" v-if="inputImageUrl" alt="" class="border rounded-2xl"
+      <img :src="inputImageUrl" v-if="inputImageUrl" alt="" class="border rounded-2xl"
                 :class="twitterBorderColor">
 
-            <input type="file" ref="imageInput" hidden accept="image/png, image/gif, image/jpeg"
-                @change="handleImageChange"> -->
+      <input
+        type="file"
+        ref="imageInput"
+        hidden
+        accept="image/png, image/gif, image/jpeg"
+        @change="handleImageChange"
+      />
     </div>
 
     <!-- Icons -->
@@ -32,6 +38,7 @@
       <div class="flex w-full text-white">
         <div
           class="p-2 text-blue-400 rounded-full cursor-pointer hover:bg-blue-50 dark:hover:bg-dim-800"
+          @click="handleImageClick"
         >
           <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
             <g>
@@ -108,7 +115,7 @@
       </div>
 
       <div class="ml-auto">
-        <UIButton size="sm" :disabled="false" @onClick="handleFormSubmit">
+        <UIButton size="sm" :disabled="isDisabled" @onClick="handleFormSubmit">
           <span class="font-bold">
             Tweet
           </span>
@@ -119,6 +126,11 @@
 </template>
 <script setup>
 const text = ref('')
+const { twitterBorderColor } = useTailwindConfig()
+const isDisabled = computed(() => text.value === '')
+const imageInput = ref()
+const selectedFile = ref(null)
+const inputImageUrl = ref(null)
 const emits = defineEmits(['onSubmit'])
 const props = defineProps({
   user: {
@@ -129,6 +141,22 @@ const props = defineProps({
 function handleFormSubmit() {
   emits('onSubmit', {
     text: text.value,
+    mediaFiles: [selectedFile.value],
   })
+}
+function handleImageClick() {
+  imageInput.value.click()
+}
+
+function handleImageChange(event) {
+  const file = event.target.files[0]
+  selectedFile.value = file
+  const reader = new FileReader()
+  //   FileReader: thuộc tính result chứa dữ liệu file dưới dạng data URL
+  reader.onload = (event) => {
+    // inputImageUrl.value = event.target
+    inputImageUrl.value= event.target.result
+  }
+  reader.readAsDataURL(file)
 }
 </script>

@@ -55,6 +55,7 @@ const defaultWidth = computed(() => {
     }
 })
 
+// computed(): returned value is a computed ref
 const classes = computed(() => `${paddingClasses.value} ${props.liquid ? 'w-full' : defaultWidth.value}`)
 
 function handleClick(event) {

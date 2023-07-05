@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
   //   let cookies = getCookie(event, "refresh_token");
   //   Refresh token is created by token
   const cookies =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGEzNzhlZDBhNmI4MDQ2OWY3MzAxYmUiLCJpYXQiOjE2ODg1MjU5ODcsImV4cCI6MTY4ODU0MDM4N30.oKKjQ0gUbSlTHb_JFPj8z60xTRcR2JzlzKbqwUo2nwg";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGEzNzhlZDBhNmI4MDQ2OWY3MzAxYmUiLCJpYXQiOjE2ODg1NTkzNDgsImV4cCI6MTY4ODU3Mzc0OH0.iQGQrAMZ4rcO6QnzG0PvHuoBkJZIN7_i6ePGwm7hIsw";
 
   const refreshToken = cookies;
   if (!refreshToken) {

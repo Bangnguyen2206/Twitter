@@ -25,9 +25,12 @@ export default defineEventHandler(async (event) => {
     text: fields.text[0],
   };
   const tweet = await createTweet(tweetData);
-  const filePromises = Object.keys(files.image).map(async (key) => {
-    const file = files.image[key].filepath;
-    const cloudinaryResource = await uploadToCloudinary(file);
+
+  const filePromises = Object.keys(files).map(async (key) => {
+    const file = files[key];
+
+    const cloudinaryResource = await uploadToCloudinary(file[0].filepath);
+
     return createMediaFile({
       url: cloudinaryResource.secure_url,
       providerPublicId: cloudinaryResource.public_id,
