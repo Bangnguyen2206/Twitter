@@ -22,7 +22,7 @@
       />
 
      
-        <UIButton @click="handleLogin">
+        <UIButton @click="handleLogin" liquid :disabled="isButtonDisabled">
           Login
         </UIButton>
       
@@ -53,4 +53,7 @@ async function handleLogin() {
     data.loading = false
   }
 }
+const isButtonDisabled = computed(() => {
+    return (!data.username || !data.password) || data.loading
+})
 </script>
