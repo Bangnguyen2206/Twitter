@@ -1,7 +1,7 @@
 <template>
   <div>
     <TweetItemHeader :tweet="props.tweet" />
-    <div class="ml-16">
+    <div :class="tweetBodyWrapper">
       <p
         class="flex-shrink w-auto font-medium text-gray-800 dark:text-white"
         :class="textSize"
@@ -22,13 +22,16 @@
         <TweetItemActions
           :tweet="props.tweet"
           :compact="props.compact"
+          @on-comment-click="handleCommentClick"
         />
       </div>
     </div>
   </div>
 </template>
 <script setup>
+import useEmitter from "../../../composables/useEmitter.js"
 const { twitterBorderColor } = useTailwindConfig()
+const emitter = useEmitter()
 const props = defineProps({
   tweet: {
     type: Object,
@@ -43,4 +46,11 @@ const props = defineProps({
     default: false,
   },
 })
+
+const tweetBodyWrapper = computed(() => props.compact ? 'ml-16' : 'ml-2 mt-4')
+const textSize = (() => props.compact ? 'text-base' : 'text-2xl')
+
+function handleCommentClick(){
+  emitter.$emit('replyTweet', props.tweet)
+}
 </script>

@@ -9,7 +9,9 @@
       v-for="tweet in props.tweets"
       :key="tweet.id"
       v-else
-    >
+      v-on:click="redirect(tweet)">
+      
+    
       <TweetItem :tweet="tweet" compact />
     </div>
   </div>

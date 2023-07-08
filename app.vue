@@ -10,7 +10,7 @@
           <!-- Left Slidebar -->
           <div class="hidden md:block xs-col-span-1 xl:col-span-2">
             <div class="sticky top-0">
-              <SidebarLeft />
+              <SidebarLeft :user="user" @on-tweet="handleOpenTweetModal" />
             </div>
           </div>
 
@@ -35,6 +35,10 @@
 
       <!-- Authentication -->
       <AuthPage v-else />
+      <UIModal :isOpen="postTweetModal" @on-close="handleModalClose">
+        {{replyTweet}}
+        <TweetForm :user="user" @on-success="handleFormSuccess"/>
+      </UIModal>
     </div>
   </div>
 </template>
@@ -42,10 +46,31 @@
 <script setup>
 import { use } from 'h3'
 import useAuth from './composables/useAuth.js'
+import useTweets from "./composables/useTweets.js"
+import useEmitter from "./composables/useEmitter.js"
 const darkMode = ref(false)
+const emitter = useEmitter()
 const { useAuthUser, initAuth, useAuthLoading } = useAuth()
+const { closePostTweetModal, usePostTweetModal, openPostTweetModal, useReplyTweet} = useTweets()
 const user = useAuthUser()
 const isAuthLoading = useAuthLoading()
+const postTweetModal = usePostTweetModal()
+const replyTweet = useReplyTweet()
+
+function handleFormSuccess(tweet){
+   closePostTweetModal()
+}
+function handleModalClose() {
+    closePostTweetModal()
+}
+function handleOpenTweetModal() {
+    openPostTweetModal(null)
+}
+
+emitter.$on('replyTweet', (tweet) => {
+    openPostTweetModal(tweet)
+})
+
 // onMounted: called after the component has been mounted
 // onBeforeMount(): caled right before the component is to be mounted
 onBeforeMount(() => {

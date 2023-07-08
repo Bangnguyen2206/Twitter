@@ -5,7 +5,8 @@
     </div>
     <div v-else>
       <!-- <TweetItem :tweet="props.replyTo" v-if="props.replyTo && props.showReply" hideActions /> -->
-      <TweetFormInput :user="props.user" @onSubmit="handleFormSubmit" />
+      <TweetFormInput :user="props.user" @onSubmit="handleFormSubmit" 
+      :placeholder="props.placeholder" />
     </div>
   </div>
 </template>
@@ -39,7 +40,9 @@ async function handleFormSubmit(data) {
     const response = await postTweet({
       text: data.text,
       mediaFiles: data.mediaFiles,
+      replyTo: props.replyTo?.id
     })
+    emits('onSuccess', response.tweet)
   } catch (error) {
     return
   } finally {

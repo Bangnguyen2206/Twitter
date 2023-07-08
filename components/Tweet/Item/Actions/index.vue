@@ -6,17 +6,17 @@
       :size="size"
     >
       <template v-slot:icon="{ classes }">
-        <BeakerIcon :class="classes" />
+        <ChatBubbleLeftIcon :class="classes" />
       </template>
 
       <template v-if="showStats" v-slot:default>
-        {{ props.tweet.repliesCount }}
+        {{props.tweet.repliesCount}}
       </template>
     </TweetItemActionsIcon>
 
     <TweetItemActionsIcon color="green" :size="size">
       <template v-slot:icon="{ classes }">
-        <BellIcon :class="classes" />
+        <FolderIcon :class="classes" />
       </template>
 
       <template v-if="showStats" v-slot:default>
@@ -26,7 +26,7 @@
 
     <TweetItemActionsIcon color="red" :size="size">
       <template v-slot:icon="{ classes }">
-        <BellIcon :class="classes" />
+        <HeartIcon :class="classes" />
       </template>
 
       <template v-if="showStats" v-slot:default>
@@ -36,7 +36,7 @@
 
     <TweetItemActionsIcon color="blue" :size="size">
       <template v-slot:icon="{ classes }">
-        <BellIcon :class="classes" />
+        <PlusIcon :class="classes" />
       </template>
 
       <template v-if="showStats" v-slot:default>
@@ -46,7 +46,7 @@
   </div>
 </template>
 <script setup>
-import { BellIcon, BeakerIcon } from '@heroicons/vue/24/outline'
+import { BellIcon, ChatBubbleLeftIcon, HeartIcon, FolderIcon, PlusIcon } from '@heroicons/vue/24/outline'
 
 const emits = defineEmits(['onCommentClick'])
 

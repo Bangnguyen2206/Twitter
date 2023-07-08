@@ -12,6 +12,7 @@ import {HashtagIcon,
   ChevronDownIcon,
   FingerPrintIcon} from '@heroicons/vue/24/outline'
 const { defaultTransition } = useTailwindConfig()
+const emits = defineEmits(['onTweet', 'onLogout'])
 </script>
 
 <template>
