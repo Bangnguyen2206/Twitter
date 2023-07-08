@@ -36,8 +36,7 @@
       <!-- Authentication -->
       <AuthPage v-else />
       <UIModal :isOpen="postTweetModal" @on-close="handleModalClose">
-        {{replyTweet}}
-        <TweetForm :user="user" @on-success="handleFormSuccess"/>
+        <TweetForm :replyTo="replyTweet" showReply :user="user" @onSuccess="handleFormSuccess"/>
       </UIModal>
     </div>
   </div>
@@ -59,6 +58,9 @@ const replyTweet = useReplyTweet()
 
 function handleFormSuccess(tweet){
    closePostTweetModal()
+   navigateTo({
+      path: `/status/${tweet.id}`
+   })
 }
 function handleModalClose() {
     closePostTweetModal()

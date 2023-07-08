@@ -4,7 +4,7 @@
       <UISpinner />
     </div>
     <div v-else>
-      <!-- <TweetItem :tweet="props.replyTo" v-if="props.replyTo && props.showReply" hideActions /> -->
+      <TweetItem :tweet="props.replyTo" v-if="props.replyTo && props.showReply" hideActions/>
       <TweetFormInput :user="props.user" @onSubmit="handleFormSubmit" 
       :placeholder="props.placeholder" />
     </div>
